@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "B2/GJzJmxwOs6eqSV0lyx6hOJ8zMuM6o9GGenjqlF28RSRG3xGUAtX0QrCDVWfJDs8RPV/PznLHC96zY0x/0Tg==",
+  "dgSpecHash": "hXAVp/VDsEKJq7ASZmD64W54h81zJpe+f52vPM4rFj0HpGGbGsB3x7aTOS81ZEh8vJxDBmiIHdEL+8fixHXbfQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
   "expectedPackageFiles": [
@@ -41,6 +41,8 @@
     "C:\\Users\\Uporabnik\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\Uporabnik\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
+    "C:\\Users\\Uporabnik\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
