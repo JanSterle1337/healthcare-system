@@ -11,5 +11,29 @@ namespace healthcare_system.Data
         }
 
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<TermReservation> TermReservations { get; set; }
+        public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<Prescription> Prescriptions { get; set; }
+        public DbSet<Medicine> Medicines { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //zdi se mi da tega nerabva nism pa zihr zto bom pustu zaenkt notr zakomentiran
+            //modelBuilder.Entity<Department>()
+            //    .HasOne(d => d.Hospital)
+            //    .WithMany(h => h.Departments)
+            //    .HasForeignKey(d => d.HospitalId);
+
+            //modelBuilder.Entity<Doctor>()
+            //    .HasOne(dr => dr.Department)
+            //    .WithMany(d => d.Doctors)
+            //    .HasForeignKey(dr => dr.DepartmentId);
+
+        }
     }
+
+    
 }

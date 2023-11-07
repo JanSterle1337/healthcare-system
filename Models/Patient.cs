@@ -7,7 +7,7 @@ namespace healthcare_system.Models
         [Key]
         [Required]
         [StringLength(50)]
-        public string Uuid { get; set; }
+        public string PatientId { get; set; }
 
         [Required]
         public string FirstName { get; set; }
@@ -30,5 +30,7 @@ namespace healthcare_system.Models
 
         [Phone]
         public string PhoneNumber { get; set; }
+
+        public ICollection<TermReservation> Terms { get; set; }
     }
 }
