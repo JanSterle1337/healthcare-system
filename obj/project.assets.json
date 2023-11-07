@@ -8,24 +8,26 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\evast\\.nuget\\packages\\": {}
+    "C:\\Users\\Uporabnik\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\janst\\FRI\\IS\\healthcare-system\\healthcare-system.csproj",
+      "projectUniqueName": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
       "projectName": "healthcare-system",
-      "projectPath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system\\healthcare-system.csproj",
-      "packagesPath": "C:\\Users\\evast\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system\\obj\\",
+      "projectPath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
+      "packagesPath": "C:\\Users\\Uporabnik\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\janst\\FRI\\IS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\evast\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Uporabnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -62,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\6.0.416\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }
