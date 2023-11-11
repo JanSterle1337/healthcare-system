@@ -1,4 +1,5 @@
-﻿using healthcare_system.Models;
+﻿using healthcare_system.Data.Mock;
+using healthcare_system.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace healthcare_system.Data
@@ -43,6 +44,8 @@ namespace healthcare_system.Data
                 .HasOne(c => c.Prescription)
                 .WithOne(p => p.Consultation)
                 .HasForeignKey<Prescription>(p => p.ConsultationId);
+
+      
         }
     }
 

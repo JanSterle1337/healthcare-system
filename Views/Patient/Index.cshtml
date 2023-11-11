@@ -1,0 +1,23 @@
+﻿@model List<healthcare_system.Models.Patient>
+
+<h2>Patiens</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>PatientId</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.PatientId</td>
+                <td>@patient.FirstName</td>
+                <td>@patient.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>
