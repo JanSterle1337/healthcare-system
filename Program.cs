@@ -16,6 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<PatientMock>();
+builder.Services.AddTransient<HospitalMock>();
 
 
 var app = builder.Build();
@@ -25,7 +27,10 @@ using (var scope = app.Services.CreateScope())
     Console.WriteLine("Hello blyat");
     var serviceProvider = scope.ServiceProvider;
     var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-    var seeder = new DbSeeder(context);
+    var patientContext = serviceProvider.GetRequiredService<PatientMock>();
+    var hospitalContext = serviceProvider.GetRequiredService<HospitalMock>();
+
+    var seeder = new DbSeeder(context, patientContext, hospitalContext);
     seeder.SeedData();
 
 }

@@ -3,6 +3,7 @@ using healthcare_system.Models;
 using Microsoft.EntityFrameworkCore;
 
 
+
 namespace healthcare_system.Data
 {
     public class ApplicationDbContext: DbContext
@@ -18,7 +19,6 @@ namespace healthcare_system.Data
         {
             options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
             options.UseSnakeCaseNamingConvention();
-      
         }
 
         public DbSet<Patient> Patients { get; set; }
