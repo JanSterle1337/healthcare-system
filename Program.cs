@@ -2,6 +2,7 @@ using healthcare_system.Data;
 using healthcare_system.Data.Mock;
 using healthcare_system.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,21 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
 
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    Console.WriteLine("Hello blyat");
+    var serviceProvider = scope.ServiceProvider;
+    var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+    var seeder = new DbSeeder(context);
+    seeder.SeedData();
+
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

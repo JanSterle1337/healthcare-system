@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace healthcare_system.Models
 {
@@ -14,6 +15,10 @@ namespace healthcare_system.Models
 
         [Required]
         public string LastName { get; set; }
+
+        [Required]
+        [MinLength(8)]
+        public string Password { get; set; }
 
         [Required]
         public DateTime Birth {  get; set; }

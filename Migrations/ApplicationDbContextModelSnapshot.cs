@@ -25,241 +25,311 @@ namespace healthcare_system.Migrations
             modelBuilder.Entity("MedicinePrescription", b =>
                 {
                     b.Property<string>("MedicinesMedicineId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("medicines_medicine_id");
 
                     b.Property<string>("PrescriptionId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("prescription_id");
 
-                    b.HasKey("MedicinesMedicineId", "PrescriptionId");
+                    b.HasKey("MedicinesMedicineId", "PrescriptionId")
+                        .HasName("pk_medicine_prescription");
 
-                    b.HasIndex("PrescriptionId");
+                    b.HasIndex("PrescriptionId")
+                        .HasDatabaseName("ix_medicine_prescription_prescription_id");
 
-                    b.ToTable("MedicinePrescription");
+                    b.ToTable("medicine_prescription", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Consultation", b =>
                 {
                     b.Property<string>("ConsultationId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("consultation_id");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
                     b.Property<string>("ReservationId")
                         .IsRequired()
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("reservation_id");
 
-                    b.HasKey("ConsultationId");
+                    b.HasKey("ConsultationId")
+                        .HasName("pk_consultations");
 
-                    b.HasIndex("ReservationId");
+                    b.HasIndex("ReservationId")
+                        .HasDatabaseName("ix_consultations_reservation_id");
 
-                    b.ToTable("Consultations");
+                    b.ToTable("consultations", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Department", b =>
                 {
                     b.Property<string>("DepartmentId")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("department_id");
 
                     b.Property<string>("Floor")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("floor");
 
                     b.Property<string>("HospitalId")
                         .IsRequired()
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("hospital_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
-                    b.HasKey("DepartmentId");
+                    b.HasKey("DepartmentId")
+                        .HasName("pk_departments");
 
-                    b.HasIndex("HospitalId");
+                    b.HasIndex("HospitalId")
+                        .HasDatabaseName("ix_departments_hospital_id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("departments", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
                 {
                     b.Property<string>("DoctorId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("doctor_id");
 
                     b.Property<string>("DepartmentId")
                         .IsRequired()
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("department_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
 
                     b.Property<string>("Specialization")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("specialization");
 
-                    b.HasKey("DoctorId");
+                    b.HasKey("DoctorId")
+                        .HasName("pk_doctors");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartmentId")
+                        .HasDatabaseName("ix_doctors_department_id");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("doctors", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Hospital", b =>
                 {
                     b.Property<string>("HospitalId")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("hospital_id");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("city");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("name");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("postal_code");
 
-                    b.HasKey("HospitalId");
+                    b.HasKey("HospitalId")
+                        .HasName("pk_hospitals");
 
-                    b.ToTable("Hospitals");
+                    b.ToTable("hospitals", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Medicine", b =>
                 {
                     b.Property<string>("MedicineId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("medicine_id");
 
                     b.Property<string>("MedicineName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("medicine_name");
 
-                    b.HasKey("MedicineId");
+                    b.HasKey("MedicineId")
+                        .HasName("pk_medicines");
 
-                    b.ToTable("Medicines");
+                    b.ToTable("medicines", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Patient", b =>
                 {
                     b.Property<string>("PatientId")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("patient_id");
 
                     b.Property<int>("Age")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("age");
 
                     b.Property<DateTime>("Birth")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("birth");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("email_address");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
 
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasMaxLength(1)
-                        .HasColumnType("character varying(1)");
+                        .HasColumnType("character varying(1)")
+                        .HasColumnName("sex");
 
-                    b.HasKey("PatientId");
+                    b.HasKey("PatientId")
+                        .HasName("pk_patients");
 
-                    b.ToTable("Patients");
+                    b.ToTable("patients", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Prescription", b =>
                 {
                     b.Property<string>("PrescriptionId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("prescription_id");
 
                     b.Property<string>("ConsultationId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("consultation_id");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
-                    b.HasKey("PrescriptionId");
+                    b.HasKey("PrescriptionId")
+                        .HasName("pk_prescriptions");
 
                     b.HasIndex("ConsultationId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("ix_prescriptions_consultation_id");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("healthcare_system.Models.TermReservation", b =>
                 {
                     b.Property<string>("ReservationId")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("reservation_id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
 
                     b.Property<string>("DoctorId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("doctor_id");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("patient_id");
 
                     b.Property<bool>("ReservedBy")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("reserved_by");
 
                     b.Property<string>("termReservationReservationId")
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("term_reservation_reservation_id");
 
-                    b.HasKey("ReservationId");
+                    b.HasKey("ReservationId")
+                        .HasName("pk_term_reservations");
 
-                    b.HasIndex("DoctorId");
+                    b.HasIndex("DoctorId")
+                        .HasDatabaseName("ix_term_reservations_doctor_id");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("PatientId")
+                        .HasDatabaseName("ix_term_reservations_patient_id");
 
-                    b.HasIndex("termReservationReservationId");
+                    b.HasIndex("termReservationReservationId")
+                        .HasDatabaseName("ix_term_reservations_term_reservation_reservation_id");
 
-                    b.ToTable("TermReservations");
+                    b.ToTable("term_reservations", (string)null);
                 });
 
             modelBuilder.Entity("MedicinePrescription", b =>
@@ -268,13 +338,15 @@ namespace healthcare_system.Migrations
                         .WithMany()
                         .HasForeignKey("MedicinesMedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_medicine_prescription_medicines_medicines_medicine_id");
 
                     b.HasOne("healthcare_system.Models.Prescription", null)
                         .WithMany()
                         .HasForeignKey("PrescriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_medicine_prescription_prescriptions_prescription_id");
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Consultation", b =>
@@ -283,7 +355,8 @@ namespace healthcare_system.Migrations
                         .WithMany()
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_consultations_term_reservations_reservation_id");
 
                     b.Navigation("TermReservation");
                 });
@@ -294,7 +367,8 @@ namespace healthcare_system.Migrations
                         .WithMany("Departments")
                         .HasForeignKey("HospitalId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_departments_hospitals_hospital_id");
 
                     b.Navigation("Hospital");
                 });
@@ -305,7 +379,8 @@ namespace healthcare_system.Migrations
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_doctors_departments_department_id");
 
                     b.Navigation("Department");
                 });
@@ -316,7 +391,8 @@ namespace healthcare_system.Migrations
                         .WithOne("Prescription")
                         .HasForeignKey("healthcare_system.Models.Prescription", "ConsultationId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_prescriptions_consultations_consultation_id");
 
                     b.Navigation("Consultation");
                 });
@@ -327,17 +403,20 @@ namespace healthcare_system.Migrations
                         .WithMany("Terms")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_term_reservations_doctors_doctor_id");
 
                     b.HasOne("healthcare_system.Models.Patient", "Patient")
                         .WithMany("Terms")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_term_reservations_patients_patient_id");
 
                     b.HasOne("healthcare_system.Models.TermReservation", "termReservation")
                         .WithMany()
-                        .HasForeignKey("termReservationReservationId");
+                        .HasForeignKey("termReservationReservationId")
+                        .HasConstraintName("fk_term_reservations_term_reservations_term_reservation_reservat");
 
                     b.Navigation("Doctor");
 
