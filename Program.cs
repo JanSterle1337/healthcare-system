@@ -70,4 +70,5 @@ app.MapControllerRoute(
     pattern: "{controller=RegisterUserController}/{action=Register}"
 );
 
+
 app.Run();
