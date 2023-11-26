@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "tjJY+taunB6L2s1X4FGbRfmj81bL3oDTa0bUpfIwhuai41iKUs16SOnguDjt2O3r6uIbgCI/iAQepnDwIuVBNg==",
+  "dgSpecHash": "5XoJAh9MR7RgBHlbKpHIZeUmTbCoE0ALanG0aAjW0yt/a2SactO9mWs/rGcrj5mSERgK8ZA+eMUzqs7TKAWeTw==",
   "success": true,
   "projectFilePath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Uporabnik\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\Uporabnik\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\efcore.namingconventions\\7.0.2\\efcore.namingconventions.7.0.2.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Uporabnik\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

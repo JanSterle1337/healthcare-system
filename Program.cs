@@ -1,6 +1,7 @@
 using healthcare_system.Data;
 using healthcare_system.Data.Mock;
 using healthcare_system.Repository;
+using healthcare_system.Utils;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -21,6 +22,7 @@ builder.Services.AddTransient<HospitalMock>();
 builder.Services.AddTransient<DepartmentMock>();
 builder.Services.AddTransient<DoctorMock>();
 builder.Services.AddTransient<MedicineMock>();
+builder.Services.AddTransient<PasswordHasher>();
 
 var app = builder.Build();
 
@@ -65,9 +67,9 @@ app.MapControllerRoute(
     pattern: "{controller=Patient}/{action=Index}"
 );
 
-app.MapControllerRoute(
+/*app.MapControllerRoute(
     name: "register",
     pattern: "{controller=RegisterUserController}/{action=Register}"
-);
+); */
 
 app.Run();
