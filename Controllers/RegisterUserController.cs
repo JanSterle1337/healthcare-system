@@ -4,6 +4,7 @@ using System.Diagnostics;
 using healthcare_system.ViewModels;
 using healthcare_system.Utils;
 
+
 namespace healthcare_system.Controllers
 {
     public class RegisterUserController : Controller
@@ -19,7 +20,6 @@ namespace healthcare_system.Controllers
         }
 
         [HttpGet("/register")]
-        [HttpGet("/login/doctor")]
         public IActionResult Register()
         {
 

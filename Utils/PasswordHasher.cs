@@ -7,9 +7,9 @@
             return BCrypt.Net.BCrypt.EnhancedHashPassword(password, 13);        
         }
 
-        public bool verifyPassword(String password, String hashedPassword)
+        public bool verifyPassword(String inputPassword, String hashedPassword)
         {
-            return BCrypt.Net.BCrypt.EnhancedVerify(password, hashedPassword);
+            return BCrypt.Net.BCrypt.EnhancedVerify(inputPassword, hashedPassword);
         }
     }
 }

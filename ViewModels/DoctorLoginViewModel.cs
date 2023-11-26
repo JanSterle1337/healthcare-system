@@ -5,11 +5,11 @@ namespace healthcare_system.ViewModels
 {
     public class DoctorLoginViewModel
     {
-        [Required(ErrorMessage = "Email is required.")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
+        [Required(ErrorMessage = "Invalid parameters")]
         public string Password { get; set; }
+
     }
 }
