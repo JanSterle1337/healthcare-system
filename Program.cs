@@ -65,4 +65,9 @@ app.MapControllerRoute(
     pattern: "{controller=Patient}/{action=Index}"
 );
 
+app.MapControllerRoute(
+    name: "register",
+    pattern: "{controller=RegisterUserController}/{action=Register}"
+);
+
 app.Run();
