@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     ));
 
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
 builder.Services.AddTransient<PatientMock>();
 builder.Services.AddTransient<HospitalMock>();
 builder.Services.AddTransient<DepartmentMock>();

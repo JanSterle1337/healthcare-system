@@ -5,6 +5,7 @@ using healthcare_system.ViewModels;
 using healthcare_system.Utils;
 using healthcare_system.Repository;
 
+
 namespace healthcare_system.Controllers
 {
     public class RegisterUserController : Controller
