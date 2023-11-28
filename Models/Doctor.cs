@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace healthcare_system.Models
 {
-    public class Doctor
+    public class Doctor : ApplicationUser
     {
-        public string DoctorId { get; set; }
 
         [Required]
         public string FirstName { get; set; }

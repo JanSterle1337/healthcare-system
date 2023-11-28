@@ -1,12 +1,13 @@
 ﻿using healthcare_system.Data.Mock;
 using healthcare_system.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 
 namespace healthcare_system.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : IdentityDbContext<Doctor>
     {
         protected readonly IConfiguration Configuration;
 
@@ -42,6 +43,9 @@ namespace healthcare_system.Data
             //    .HasOne(dr => dr.Department)
             //    .WithMany(d => d.Doctors)
             //    .HasForeignKey(dr => dr.DepartmentId);
+
+            modelBuilder.HasDefaultSchema("public");
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Consultation>()
                 .HasOne(c => c.Prescription)

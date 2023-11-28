@@ -24,7 +24,7 @@ namespace healthcare_system.Data.Mock
                         ReservedBy  = true,
                         CreatedAt = new DateTime(1990, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                         PatientId = "P3",
-                        DoctorId = "D1",
+                        DoctorId = "1",
                         Patient = patients[0]
                         
                     },
@@ -36,7 +36,7 @@ namespace healthcare_system.Data.Mock
                         ReservedBy  = true,
                         CreatedAt = new DateTime(2005, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                         PatientId = "P4",
-                        DoctorId = "D2",
+                        DoctorId = "2",
                         Patient = patients[1]
 
                     },

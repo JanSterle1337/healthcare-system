@@ -1,7 +1,9 @@
 using healthcare_system.Data;
 using healthcare_system.Data.Mock;
+using healthcare_system.Models;
 using healthcare_system.Repository;
 using healthcare_system.Utils;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -12,6 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDefaultIdentity<Doctor>(options => options.SignIn.RequireConfirmedAccount = false)
+        .AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
@@ -62,7 +68,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
+app.MapRazorPages();
 app.UseAuthorization();
 
 app.MapControllerRoute(
