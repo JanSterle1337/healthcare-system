@@ -2,11 +2,9 @@
 
 
 
-<h1>@Model.PatientId</h1>
+<h1>Uredi termin za pacienta</h1>
 
-<h1>@Model.DoctorId</h1>
-<h1>@Model.Date</h1>
-<h1>@Model.Doctor</h1>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -20,20 +18,80 @@
         <th scope="col">@Model.DoctorId</th> 
         <th scope="col">@Model.Date.ToString("dd-M-yyyy hh:mm")</th>
         <th scope="col">@Model.PatientId</th>
+        <th scope ="col">
+            @using (Html.BeginForm("BackToDetails", "Reservation"))
+            {
+                <button scope="row" type="submit" name="editButton" class="btn btn-danger btn-sm" asp>Prekliči</button>
+            }
+
+        </th>
     </tr>
     <tr>
-        <th>
+        @using (Html.BeginForm("EditReservationSave", "Reservation", FormMethod.Post))
+        {
+            <th scope="col">@Html.TextBoxFor(m => m.DoctorId) </th>
+            <th scope="col">@Html.TextBoxFor(m => m.Date) </th>
+            <th scope="col">@Html.TextBoxFor(m => m.PatientId) </th>
+            @Html.HiddenFor(m => m.ReservationId)
+            <th><button scope="row" type="submit" name="editButton" class="btn btn-success btn-sm" value="Submit">Shrani</button></th>
+        }
+    </tr>
+
+
+
+
+
+
+
+
+    @*tr asp-controller="Reservation" asp-action="NewReservationSave" method="post">
+        @using (Html.BeginForm("EditReservationSave", "Reservation", FormMethod.Post))
+        {
+        <th scope="col">
         <div>
             <div class="input-group">
-                <input type="text"
+                    @Html.HiddenFor(m => m.termReservation.ReservationId)
+                    @Html.HiddenFor(m => m.termReservation.DoctorId)
+                    <input asp-for="termReservation.DoctorId" type="text"
                        class="form-control"
                        placeholder="Doctor ID"
-                       aria-label="Doctor ID"
-                       aria-describedby="button-addon1" />
+                       aria-label="Doctor ID" />
             </div>
         </div>
         </th>
-    </tr>
+        <th scope="col">
+            <div>
+                <div class="input-group">
+                    @Html.HiddenFor(m => m.termReservation.Date)
+                    <input asp-for="termReservation.Date" type="text"
+                           class="form-control"
+                           placeholder="Dan in ura"
+                           aria-label="Dan in ura" />
+                </div>
+            </div>
+        </th>
+        <th scope="col">
+            <div>
+                <div class="input-group">
+                    @Html.HiddenFor(m => m.termReservation.PatientId)
+                    <input asp-for="termReservation.PatientId" type="text"
+                           class="form-control"
+                           placeholder="Pacient"
+                           aria-label="Pacient" />
+                </div>
+            </div>
+        </th>
+        <th scope="col">
+            
+                @Html.HiddenFor(m => m.termReservation.ReservationId)
+                @Html.HiddenFor(m => m.termReservation.DoctorId)
+                @Html.HiddenFor(m => m.termReservation.Date)
+                @Html.HiddenFor(m => m.termReservation.PatientId)
+                <button scope="row" type="submit" name="editButton" class="btn btn-success btn-sm" asp>Shrani</button>
+            
+        </th>
+        }
+    </tr>*@
 </table>
 
 

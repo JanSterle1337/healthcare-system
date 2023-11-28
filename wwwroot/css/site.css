@@ -13,10 +13,36 @@ html {
   min-height: 100%;
 }
 
-body {
+/*body {
   margin-bottom: 60px;
-}
+}*/
 
 .button-container {
     display: flex;
+}
+.home {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    animation: changeBackground 30s infinite;
+    position: relative;
+    color: black;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@keyframes changeBackground {
+    0%, 40% {
+        background-image: url('wow.jpg'); 
+    }
+
+    40%, 75% {
+        background-image: url('zdravniki.png');
+    }
+
+    75%, 100% {
+        background-image: url('operacija.jpg'); 
+    }
 }

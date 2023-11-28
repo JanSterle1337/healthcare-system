@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "/f5XlfxUSinRX0xR4wZ2Eji+78nj+p5Rm+KOYXGrK9tef+f+Zq3hWffyUjMR8xFi94CJCQyw9p5ICupGn8tqaw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
+  "projectFilePath": "C:\\Users\\timma\\Desktop\\IS\\healthcare-system.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\timma\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\timma\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
