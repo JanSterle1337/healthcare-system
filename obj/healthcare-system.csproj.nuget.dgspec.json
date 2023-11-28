@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\timma\\Desktop\\IS\\healthcare-system.csproj": {}
+    "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj": {}
   },
   "projects": {
-    "C:\\Users\\timma\\Desktop\\IS\\healthcare-system.csproj": {
+    "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\timma\\Desktop\\IS\\healthcare-system.csproj",
+        "projectUniqueName": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
         "projectName": "healthcare-system",
-        "projectPath": "C:\\Users\\timma\\Desktop\\IS\\healthcare-system.csproj",
-        "packagesPath": "C:\\Users\\timma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\timma\\Desktop\\IS\\obj\\",
+        "projectPath": "C:\\Users\\janst\\FRI\\IS\\healthcare-system.csproj",
+        "packagesPath": "C:\\Users\\Uporabnik\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\janst\\FRI\\IS\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\timma\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Uporabnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,9 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.realis.si/dc/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
@@ -118,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

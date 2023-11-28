@@ -19,7 +19,7 @@ builder.Services.AddDefaultIdentity<Doctor>(options => options.SignIn.RequireCon
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")
+    builder.Configuration.GetConnectionString("Cloud")
     ));
 
 builder.Services.AddTransient<IPatientRepository, PatientRepository>();

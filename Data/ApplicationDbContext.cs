@@ -18,8 +18,9 @@ namespace healthcare_system.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
-            options.UseSnakeCaseNamingConvention();
+            options.UseSqlServer(Configuration.GetConnectionString("Cloud"));
+            //options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
+           // options.UseSnakeCaseNamingConvention();
         }
 
         public DbSet<Patient> Patients { get; set; }
@@ -44,7 +45,7 @@ namespace healthcare_system.Data
             //    .WithMany(d => d.Doctors)
             //    .HasForeignKey(dr => dr.DepartmentId);
 
-            modelBuilder.HasDefaultSchema("public");
+         
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Consultation>()
