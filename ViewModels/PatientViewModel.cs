@@ -19,7 +19,7 @@ namespace healthcare_system.ViewModels
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Birth is required.")]
-        public DateOnly Birth { get; set; }
+        public DateTimeOffset Birth { get; set; }
 
         [Required(ErrorMessage = "Sex is required field.")]
         [StringLength(1)]

@@ -27,6 +27,9 @@ builder.Services.AddTransient<DoctorMock>();
 builder.Services.AddTransient<MedicineMock>();
 builder.Services.AddTransient<TermReservationMock>();
 builder.Services.AddTransient<PasswordHasher>();
+builder.Services.AddTransient<AgeCalculator>();
+builder.Services.AddTransient<UuidGenerator>();
+
 
 var app = builder.Build();
 
