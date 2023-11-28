@@ -60,6 +60,27 @@ namespace healthcare_system.Controllers
             return View("NewReservation");
         }
 
+        public ActionResult BackToDetails()
+        {
+            return Redirect("/reservation/details");
+        }
+
+        public IActionResult EditReservationSave(TermReservation tr)
+        {
+
+            TermReservation tmp = _termReservationRepository.GetById(tr.ReservationId);
+            
+            if(tmp.DoctorId!=null)
+                tmp.DoctorId = tr.DoctorId;
+            if (tmp.PatientId != null)
+                tmp.PatientId = tr.PatientId;
+            //if (tmp.Date != null)
+            //    tmp.Date = tr.Date;
+            _termReservationRepository.Update(tmp);
+
+            return Redirect("/reservation/details");
+        }
+
 
 
         public IActionResult NewReservation(TermReservation tr)         //funkcija k poslemo podatke iz page ob dodajanju novega termina
