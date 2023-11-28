@@ -3,7 +3,7 @@ using healthcare_system.Models;
 
 namespace healthcare_system.Repository
 {
-    public class TermReservationRepository
+    public class TermReservationRepository : ITermReservationRepository
     {
         private readonly ApplicationDbContext _db;
 

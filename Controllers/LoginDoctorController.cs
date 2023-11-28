@@ -34,7 +34,6 @@ namespace healthcare_system.Controllers
             {
                 Console.WriteLine("invalid model");
                 return View("login", doctorLoginViewModel);
-
             }
 
             List<Doctor> doctors=_doctorRepository.GetAll();

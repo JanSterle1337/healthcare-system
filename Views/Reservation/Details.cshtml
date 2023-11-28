@@ -1,0 +1,58 @@
+﻿@model List<healthcare_system.Models.TermReservation>
+
+<div>
+    <h4>Reservations</h4>
+    
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        @using (Html.BeginForm("NewReservationPage", "Reservation"))
+        {
+            <button type="submit" class="btn btn-success position-absolute top-0 end-0" asp>+</button>
+        }
+    </nav>
+
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id rezervacije</th>
+                <th scope="col">Dan in ura</th>
+                <th scope="col">Pacient</th>
+                <th scope="col"> Posodobi</th>
+            </tr>
+        </thead>    
+        <tbody>
+            @foreach (var term in Model)
+            {
+                
+                    <tr>
+                    <th scope="row" name="id">@term.ReservationId</th>
+                    <td scope="row">@term.Date.ToString("dd-M-yyyy hh:mm")</td>
+                        <td scope="row">@term.PatientId</td>
+                        <td scope="row">
+                        <div class="button-container ">
+                            
+                            @using (Html.BeginForm("EditReservation", "Reservation", FormMethod.Post))
+                                 {
+                                    <input type="hidden" name="id" value="@term.ReservationId" />
+                                    <button scope="row" type="submit" name="editButton" value="@term.ReservationId" class="btn btn-primary btn-sm" asp>Uredi</button>
+                                 }
+                                @using (Html.BeginForm("DeleteReservation", "Reservation", FormMethod.Post))
+                                {
+                                    <input type="hidden" name="id" value="@term.ReservationId" />
+                                    <button scope="row" type="submit" name="deleteButton" value="@term.ReservationId" class="btn btn-danger btn-sm" asp>Izbriši</button>
+                                }
+                         </div>
+                    </td>   
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+
+
+
+
+    
+</div>

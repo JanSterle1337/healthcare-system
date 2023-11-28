@@ -1,0 +1,39 @@
+﻿@model healthcare_system.Models.TermReservation
+
+
+
+<h1>@Model.PatientId</h1>
+
+<h1>@Model.DoctorId</h1>
+<h1>@Model.Date</h1>
+<h1>@Model.Doctor</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Doctor Id</th>
+            <th scope="col">Dan in ura</th>
+            <th scope="col">Pacient</th>
+            <th scope="col"> Posodobi</th>
+        </tr>
+    </thead>
+    <tr>
+        <th scope="col">@Model.DoctorId</th> 
+        <th scope="col">@Model.Date.ToString("dd-M-yyyy hh:mm")</th>
+        <th scope="col">@Model.PatientId</th>
+    </tr>
+    <tr>
+        <th>
+        <div>
+            <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Doctor ID"
+                       aria-label="Doctor ID"
+                       aria-describedby="button-addon1" />
+            </div>
+        </div>
+        </th>
+    </tr>
+</table>
+
+

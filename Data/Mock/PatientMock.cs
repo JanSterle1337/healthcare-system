@@ -12,7 +12,7 @@ namespace healthcare_system.Data.Mock
             _db = db;
         }
 
-        public void seedPatients()
+        public List<Patient> seedPatients()
         {
             var mockPatients = new List<Patient>
             {
@@ -77,6 +77,8 @@ namespace healthcare_system.Data.Mock
             }
 
             _db.SaveChanges();
+            return _db.Patients.ToList();
+
         }
 
     }

@@ -1,8 +1,5 @@
-﻿@using healthcare_system.ViewModels;
-@model healthcare_system.ViewModels.DoctorLoginViewModel
-@{
-   var doctor = ViewData["DoctorLoginViewModel"] as DoctorLoginViewModel;
-}
+﻿@model healthcare_system.ViewModels.DoctorLoginViewModel
+
 
 <h2>Doctor Login</h2>
 
@@ -18,13 +15,7 @@
         <input asp-for="Password" type="password" class="form-controller" />
         <span asp-validation-for="Password"></span>
     </div>
-    <div class="form group">
-        @if(doctor!=null)
-        {
-            <h6>@doctor.WrongInput</h6>
-        }
-        
-    </div>
+
     <button type="submit">Log in</button>
 
 </form>

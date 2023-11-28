@@ -10,7 +10,7 @@ namespace healthcare_system.Models
         public string ReservationId { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
 
         [Required]
         public bool ReservedBy { get; set; }

@@ -1,0 +1,26 @@
+﻿@model healthcare_system.Models.TermReservation
+
+
+<h2>Dodaja novega termina</h2>
+
+<form asp-controller="Reservation" asp-action="NewReservation" method="post">
+
+    <div class="form group">
+        <label asp-for="Doctor.DoctorId"></label>
+        <input asp-for="Doctor.DoctorId" class="form-controller" />
+        <span asp-validation-for="Doctor.DoctorId"></span>
+    </div>
+    <div class="form group">
+        <label asp-for="Patient.PatientId"></label>
+        <input asp-for="Patient.PatientId" type="Patient" class="form-controller" />
+        <span asp-validation-for="Patient.PatientId"></span>
+    </div>
+    <div class="form group">
+        <label asp-for="Date"></label>
+        <input asp-for="Date" type="Date" class="form-controller" />
+        <span asp-validation-for="Date"></span>
+    </div>
+
+    <button type="submit">Dodaj nov termin</button>
+
+</form>

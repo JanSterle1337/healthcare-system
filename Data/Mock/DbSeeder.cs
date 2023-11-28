@@ -12,6 +12,7 @@ namespace healthcare_system.Data.Mock
         protected DepartmentMock _departmentMock;
         protected DoctorMock _doctorMock;
         protected MedicineMock _medicineMock;
+        protected TermReservationMock _termReservationMock;
 
         public DbSeeder(
             ApplicationDbContext context, 
@@ -19,7 +20,8 @@ namespace healthcare_system.Data.Mock
             HospitalMock hospitalMock,
             DepartmentMock departmentMock,
             DoctorMock doctorMock,
-            MedicineMock medicineMock
+            MedicineMock medicineMock,
+            TermReservationMock termReservationMock
             ) 
         {
             _context = context;
@@ -28,15 +30,17 @@ namespace healthcare_system.Data.Mock
             _departmentMock = departmentMock;
             _doctorMock = doctorMock;
             _medicineMock = medicineMock;
+            _termReservationMock = termReservationMock;
         }
 
         public void SeedData()
         {
-            _patientMock.seedPatients();
+            List<Patient> patients = _patientMock.seedPatients();
             _hospitalMock.seedHospitals();
             _departmentMock.seedDepartments();
             _doctorMock.seedDoctors();
             _medicineMock.seedMedicine();
+            _termReservationMock.seedTermReservations(patients);
         }
     }
 }
