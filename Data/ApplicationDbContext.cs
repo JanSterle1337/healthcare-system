@@ -53,6 +53,10 @@ namespace healthcare_system.Data
                 .WithOne(p => p.Consultation)
                 .HasForeignKey<Prescription>(p => p.ConsultationId);
 
+            modelBuilder.Entity<Patient>()
+                .HasIndex(p => p.EmailAddress)
+                .IsUnique();
+
 
         }
     }

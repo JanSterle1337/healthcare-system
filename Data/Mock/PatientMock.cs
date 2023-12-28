@@ -25,7 +25,7 @@ namespace healthcare_system.Data.Mock
                         Sex = "M",
                         Password = "Jancigan",
                         Age = 32,
-                        EmailAddress = "john.doe123@example.com",
+                        EmailAddress = "jan.sterle@gmail.com",
                         PhoneNumber = "123-456-7890"
                     },
                     new Patient
@@ -37,7 +37,7 @@ namespace healthcare_system.Data.Mock
                         Sex = "M",
                         Password = "Timcigan",
                         Age = 32,
-                        EmailAddress = "john.doe123@example.com",
+                        EmailAddress = "tim.marinsek@gmail.com",
                         PhoneNumber = "123-456-7890"
                     },
                     new Patient
@@ -49,7 +49,7 @@ namespace healthcare_system.Data.Mock
                         Sex = "M",
                         Password = "Nejccigan",
                         Age = 32,
-                        EmailAddress = "john.doe123@example.com",
+                        EmailAddress = "nejc.narobe@gmail.com",
                         PhoneNumber = "123-456-7890"
                     },
                     new Patient
@@ -61,7 +61,7 @@ namespace healthcare_system.Data.Mock
                         Sex = "M",
                         Password = "Nejccigan123",
                         Age = 32,
-                        EmailAddress = "john.doe123@example.com",
+                        EmailAddress = "nejc.sila@gmail.com",
                         PhoneNumber = "123-456-7890"
                     }
             };

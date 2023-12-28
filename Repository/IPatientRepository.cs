@@ -6,6 +6,7 @@ namespace healthcare_system.Repository
     {
         List<Patient> GetAll();
         Patient GetById(string id);
+        Patient GetPatientsByEmails(string email);
         void Add(Patient patient);
         void Update(Patient patient);
         void Remove(string id);

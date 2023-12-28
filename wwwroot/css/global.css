@@ -1,0 +1,34 @@
+﻿body {
+
+}
+
+
+.login-footer-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.default-margin {
+    margin: 10px 0 10px 10px;
+}
+
+
+.no-underline {
+    text-decoration: none;
+}
+
+.input-margin {
+    margin: 10px 0px 10px 0;
+}
+
+.center-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.default-form {
+    width: 60%;
+}

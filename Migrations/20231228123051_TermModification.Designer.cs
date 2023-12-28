@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using healthcare_system.Data;
 
@@ -11,9 +12,11 @@ using healthcare_system.Data;
 namespace healthcare_system.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231228123051_TermModification")]
+    partial class TermModification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,7 +377,7 @@ namespace healthcare_system.Migrations
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -398,9 +401,6 @@ namespace healthcare_system.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.HasKey("PatientId");
-
-                    b.HasIndex("EmailAddress")
-                        .IsUnique();
 
                     b.ToTable("Patients");
                 });
@@ -570,17 +570,21 @@ namespace healthcare_system.Migrations
 
             modelBuilder.Entity("healthcare_system.Models.TermReservation", b =>
                 {
-                    b.HasOne("healthcare_system.Models.Doctor", null)
+                    b.HasOne("healthcare_system.Models.Doctor", "Doctor")
                         .WithMany("Terms")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("healthcare_system.Models.Patient", null)
+                    b.HasOne("healthcare_system.Models.Patient", "Patient")
                         .WithMany("Terms")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Consultation", b =>

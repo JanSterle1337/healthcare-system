@@ -75,6 +75,16 @@ namespace healthcare_system.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// 
+
+            [Required]
+            [Display(Name = "First name")]
+            public string FirstName {  get; set; }
+
+            [Required]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -98,11 +108,35 @@ namespace healthcare_system.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "PhoneNumber")]
+            public string PhoneNumber {  get; set; }
+
+            [Required]
+            [Display(Name = "Specialization")]
+            public string Specialization {  get; set; }
+
+            [Required]
+            [Display(Name = "Department")]
+            public string DepartmentId { get; set; }
+
         }
 
+        public List<string> SpecializationOptions { get; set; }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+
+            SpecializationOptions = new List<string>
+           { 
+                "Hipertenzija",
+                "Hematologija",
+                "Gastroentrologija"
+                // Add more options as needed
+            };
+
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -111,9 +145,22 @@ namespace healthcare_system.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
             if (ModelState.IsValid)
             {
+
+                
                 var user = CreateUser();
+                user.FirstName = Input.FirstName;
+                user.LastName = Input.LastName;
+                user.Email = Input.Email;
+                user.Password = Input.Password;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.Specialization = Input.Specialization;
+                user.DepartmentId = Input.DepartmentId;
+                user.Email = Input.Email;
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

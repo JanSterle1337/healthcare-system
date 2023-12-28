@@ -1,26 +1,18 @@
-﻿@model healthcare_system.Models.TermReservation
+﻿@model healthcare_system.ViewModels.NewTermReservationViewModel
 
 
 <h2>Dodaja novega termina</h2>
 
 <form asp-controller="Reservation" asp-action="NewReservation" method="post">
-
-    <div class="form group">
-        <label asp-for="Doctor.Id"></label>
-        <input asp-for="Doctor.Id" class="form-controller" />
-        <span asp-validation-for="Doctor.Id"></span>
+    <div class="form-group">
+        <label asp-for="Email" class="form-label">Email račun pacienta</label>
+        <select asp-for="Email" class="form-control" asp-items="@(ViewData["PatientEmails"] as SelectList)"></select>
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
-    <div class="form group">
-        <label asp-for="Patient.PatientId"></label>
-        <input asp-for="Patient.PatientId" type="Patient" class="form-controller" />
-        <span asp-validation-for="Patient.PatientId"></span>
+    <div class="form-group">
+        <label asp-for="ReservationDate" class="form-label">termin pregleda</label>
+        <input asp-for="ReservationDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="ReservationDate" class="text-danger"></span>
     </div>
-    <div class="form group">
-        <label asp-for="Date"></label>
-        <input asp-for="Date" type="Date" class="form-controller" />
-        <span asp-validation-for="Date"></span>
-    </div>
-
-    <button type="submit">Dodaj nov termin</button>
-
+    <button type="submit" class="btn btn-primary">Dodaj nov termin</button>
 </form>

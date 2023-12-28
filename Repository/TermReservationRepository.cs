@@ -1,5 +1,6 @@
 ﻿using healthcare_system.Data;
 using healthcare_system.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace healthcare_system.Repository
 {
@@ -10,6 +11,7 @@ namespace healthcare_system.Repository
         public TermReservationRepository(ApplicationDbContext db)
         {
             _db = db;
+          
         }
 
         public List<TermReservation> GetAll()
@@ -24,7 +26,10 @@ namespace healthcare_system.Repository
 
         public void Add(TermReservation term)
         {
+
+            Console.WriteLine(term.ToString());
             _db.TermReservations.Add(term);
+
             _db.SaveChanges();
         }
 

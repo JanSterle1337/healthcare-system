@@ -2,7 +2,9 @@
 using healthcare_system.Models;
 using healthcare_system.Repository;
 using healthcare_system.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace healthcare_system.Controllers
@@ -13,12 +15,19 @@ namespace healthcare_system.Controllers
         private readonly ITermReservationRepository _termReservationRepository;
         private readonly IPatientRepository _patientRepository;
         private readonly IDoctorRepository _doctorRepository;
+        private readonly UserManager<Doctor> _userManager;
 
-        public ReservationController(ITermReservationRepository termReservationRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository)
+        public ReservationController(
+            ITermReservationRepository termReservationRepository, 
+            IPatientRepository patientRepository, 
+            IDoctorRepository doctorRepository,
+            UserManager<Doctor> userManager
+            )
         {
             _termReservationRepository = termReservationRepository;
             _patientRepository = patientRepository;
             _doctorRepository = doctorRepository;
+            _userManager = userManager;
         }
 
         [HttpGet("/reservation/details")]
@@ -55,8 +64,12 @@ namespace healthcare_system.Controllers
         }
 
 
-        public ActionResult NewReservationPage()        //funkcija k se klice ob prtisku gumba za dodajanje terminov da navigira na novo stran
+   
+        public ActionResult NewReservationPage()        
         {   
+            var patientEmails = _patientRepository.GetAll().Select(patient => patient.EmailAddress);
+            ViewData["PatientEmails"] = new SelectList(patientEmails);
+
             return View("NewReservation");
         }
 
@@ -83,16 +96,37 @@ namespace healthcare_system.Controllers
 
 
 
-        public IActionResult NewReservation(TermReservation tr)         //funkcija k poslemo podatke iz page ob dodajanju novega termina
-        {                                                               // in se pol shrani v bazo
-           
-            tr.ReservationId = Guid.NewGuid().ToString("D");
-            tr.ReservedBy = true; //true je dohter    
-            tr.CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);     //to mormo fixat (neke tezave z formatom)
-            tr.Patient = _patientRepository.GetById(tr.PatientId);
-            tr.Doctor = _doctorRepository.GetById(tr.DoctorId);
+        [HttpPost]
+        public IActionResult NewReservation(NewTermReservationViewModel termReservationVM)         //funkcija k poslemo podatke iz page ob dodajanju novega termina
+        {
 
-            _termReservationRepository.Add(tr);
+            if (!ModelState.IsValid)
+            {
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    var modelStateVal = ModelState[modelStateKey];
+                    foreach (var error in modelStateVal.Errors)
+                    {
+                        Console.WriteLine($"Key: {modelStateKey}, Error: {error.ErrorMessage}");
+                    }
+                }
+
+                return BadRequest(ModelState);
+            }
+
+
+            TermReservation termReservation = new TermReservation();
+            termReservation.CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
+            termReservation.ReservationId = Guid.NewGuid().ToString("D");
+            termReservation.ReservedBy = true; //reserved by doctor
+            Patient pickedPatient = _patientRepository.GetPatientsByEmails(termReservationVM.Email);
+
+            termReservation.PatientId = pickedPatient.PatientId;
+            termReservation.DoctorId = _userManager.GetUserId(User);
+
+            _termReservationRepository.Add(termReservation);
+
+
             return Redirect("/reservation/details");            //ns redirecta nazaj na page kjer vidmo vse termine
         }
 
