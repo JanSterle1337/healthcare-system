@@ -449,6 +449,10 @@ namespace healthcare_system.Migrations
                     b.Property<bool>("ReservedBy")
                         .HasColumnType("bit");
 
+                    b.Property<string>("TermStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ReservationId");
 
                     b.HasIndex("DoctorId");

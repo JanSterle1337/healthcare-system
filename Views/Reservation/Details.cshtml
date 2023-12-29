@@ -1,13 +1,14 @@
-﻿@model List<healthcare_system.Models.TermReservation>
+﻿@*@model List<healthcare_system.Models.TermReservation> *@
+@model List<Tuple<healthcare_system.Models.TermReservation, healthcare_system.Models.Doctor, healthcare_system.Models.Patient>>
 
 <div>
-    <h4>Reservations</h4>
+    <h2>Rezervirani termini za obravnavo določenih pacientov</h2>
     
 
     <nav class="navbar navbar-expand-lg navbar-light">
         @using (Html.BeginForm("NewReservationPage", "Reservation"))
         {
-            <button type="submit" class="btn btn-success position-absolute top-0 end-0" asp>+</button>
+            <button type="submit" class="btn btn-success position-absolute top-0 end-0 " asp>+</button>
         }
     </nav>
 
@@ -18,12 +19,44 @@
             <tr>
                 <th scope="col">Id rezervacije</th>
                 <th scope="col">Dan in ura</th>
-                <th scope="col">Pacient</th>
-                <th scope="col"> Posodobi</th>
+                <th scope="col">Obravnavan pacient</th>
+                <th scope="col"> Zdravnik za obravnavo</th>
+                <th scope="col">Status pregleda</th>
+                <th scope="col">Urejanje pregleda</th>
             </tr>
         </thead>    
         <tbody>
-            @foreach (var term in Model)
+
+            @foreach(var reservationDetail in ViewBag.ReservationDetails)
+            {
+                <tr>
+                    <th scope="row" name="id">@reservationDetail.Item1.ReservationId</th>
+                    <td scope="row">@reservationDetail.Item1.Date.ToString("dd-M-yyyy hh:mm")</td>
+                    <td scope="row">@reservationDetail.Item3.FirstName @reservationDetail.Item3.LastName</td>
+                    <td scope="row">@reservationDetail.Item2.FirstName @reservationDetail.Item2.LastName</td>
+                    <td><div class="btn bg-warning fw-bold btn-sm m-1">@reservationDetail.Item1.TermStatus</div></td>
+                    <td scope="row">
+                        <div class="button-container flex-row">
+                            @using (Html.BeginForm("EditReservation", "Reservation", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" value="@reservationDetail.Item1.ReservationId" />
+                                <button scope="row" type="submit" name="editButton" value="@reservationDetail.Item1.ReservationId" class="btn btn-primary btn-sm m-1">Uredi rezervacijo</button>
+                            }
+
+                            @using (Html.BeginForm("DeleteReservation", "Reservation", FormMethod.Post))
+                            {
+                                <input type="hidden" name="id" value="@reservationDetail.Item1.ReservationId" />
+                                <button scope="row" type="submit" name="deleteButton" value="@reservationDetail.Item1.ReservationId" class="btn btn-danger btn-sm m-1">Izbriši rezervacijo</button>
+                            }
+                        </div>
+                        
+                    </td>
+
+                </tr>
+            }
+
+
+            @*@foreach (var term in Model)
             {
                     <tr>
                     <th scope="row" name="id">@term.ReservationId</th>
@@ -46,7 +79,7 @@
                     </td>   
                 </tr>
                 
-            }
+            } *@
         </tbody>
     </table>
 

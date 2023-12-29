@@ -12,8 +12,8 @@ using healthcare_system.Data;
 namespace healthcare_system.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231228135454_TermModification##2")]
-    partial class TermModification2
+    [Migration("20231229175002_TermModification#4")]
+    partial class TermModification4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -377,7 +377,7 @@ namespace healthcare_system.Migrations
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -401,6 +401,9 @@ namespace healthcare_system.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.HasKey("PatientId");
+
+                    b.HasIndex("EmailAddress")
+                        .IsUnique();
 
                     b.ToTable("Patients");
                 });
@@ -448,6 +451,10 @@ namespace healthcare_system.Migrations
 
                     b.Property<bool>("ReservedBy")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TermStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReservationId");
 

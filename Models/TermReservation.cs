@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace healthcare_system.Models
 {
     public class TermReservation
     {
+
         [Key]
         [StringLength(50)]
         public string ReservationId { get; set; }
@@ -18,6 +21,10 @@ namespace healthcare_system.Models
 
         [Required]
         public DateTime CreatedAt { get; set; }
+
+        [DefaultValue("neizvedeno")]
+        [Required]
+        public string TermStatus { get; set; }
         
         [Required]
         [ForeignKey("Patient")]

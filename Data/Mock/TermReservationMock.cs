@@ -25,7 +25,7 @@ namespace healthcare_system.Data.Mock
                         CreatedAt = new DateTime(1990, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                         PatientId = "P3",
                         DoctorId = "1",
-                     
+                        TermStatus = "neizvedeno"
 
                     },
                     new TermReservation
@@ -37,7 +37,7 @@ namespace healthcare_system.Data.Mock
                         CreatedAt = new DateTime(2005, 1, 10, 0, 0, 0, DateTimeKind.Utc),
                         PatientId = "P4",
                         DoctorId = "2",
-                  
+                        TermStatus = "neizvedeno"
 
                     },
 
@@ -49,7 +49,8 @@ namespace healthcare_system.Data.Mock
                         CreatedAt = DateTime.Now,
                         PatientId = "P4",
                         DoctorId= "2",
-                      
+                        TermStatus = "neizvedeno"
+
                     },
                     new TermReservation
                     {
@@ -59,7 +60,8 @@ namespace healthcare_system.Data.Mock
                         CreatedAt = DateTime.Now,
                         PatientId = "P3",
                         DoctorId = "2",
-                      
+                        TermStatus = "neizvedeno"
+
                     }
 
             };

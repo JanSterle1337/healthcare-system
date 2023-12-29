@@ -1,6 +1,6 @@
 ﻿@model healthcare_system.ViewModels.EditTermReservationViewModel
 
-<h1>Uredi termin za pacienta</h1>
+@*<h1>Uredi termin za pacienta</h1>
 <form asp-controller="Reservation" asp-action="EditReservationSave" method="post" class="flex-column">
         
         <h2>Podatki o pacientu</h2>
@@ -23,7 +23,70 @@
 
         <button type="submit" class="btn btn-primary">Save changes</button>
     
-</form>
+</form>*@
+
+<div class="container mt-4">
+    <h1 class="mb-4">Uredi termin za pacienta</h1>
+
+    <form asp-controller="Reservation" asp-action="EditReservationSave" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Podatki o pacientu</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="fw-bold">Ime in Priimek:</td>
+                        <td>@Model.patient.FirstName @Model.patient.LastName</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Email:</td>
+                        <td>@Model.patient.EmailAddress</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Starost:</td>
+                        <td>@Model.patient.Age</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Podatki o zdravniku</h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="fw-bold">Ime in Priimek:</td>
+                        <td>@Model.doctor.FirstName @Model.doctor.LastName</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Email:</td>
+                        <td>@Model.doctor.Email</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Oddelek ID:</td>
+                        <td>@Model.doctor.DepartmentId</td>
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">Specializacija:</td>
+                        <td>@Model.doctor.Specialization</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.Date" class="form-label">Reservation Date</label>
+            <input asp-for="@Model.Date" type="date" class="form-control" value="@Model.Date.ToString("yyy-MM-dd")" />
+            <span asp-validation-for="@Model.Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SelectedDoctorEmail" class="form-label">Izberi novega doktorja za obravnavo</label>
+            @Html.DropDownListFor(model => model.SelectedDoctorEmail, Model.DoctorList, "Select a doctor", new { @class = "form-control" })
+            <span asp-validation-for="SelectedDoctorEmail" class="text-danger"></span>
+        </div>
+
+        <input asp-for="@Model.ReservationId" type="hidden" value="@Model.ReservationId" />
+
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+</div>
 
 
 
