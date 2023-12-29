@@ -52,13 +52,24 @@ namespace healthcare_system.Controllers
             return Redirect("/reservation/details");       // redirectamo oz refeshamo site
 
         }
-        [HttpPost]
+
+      
         public ActionResult EditReservation(string id, string editButton)
         {
+            Console.WriteLine("Baje da gremo editat stuff#222");
+
             if (!string.IsNullOrEmpty(editButton))        //prevermo ce je gumb biu res prtisnen
             {
-                TermReservation reservation = _termReservationRepository.GetById(id);   
-                return View(reservation);
+                TermReservation reservation = _termReservationRepository.GetById(id);
+                Doctor doctor = _doctorRepository.GetById(reservation.DoctorId);
+                Patient patient = _patientRepository.GetById(reservation.PatientId);
+
+                EditTermReservationViewModel editTermReservationViewModel = new EditTermReservationViewModel();
+                editTermReservationViewModel.doctor = doctor;
+                editTermReservationViewModel.patient = patient;
+                editTermReservationViewModel.ReservationId = reservation.ReservationId;
+
+                return View(editTermReservationViewModel);
             }
             return Redirect("/reservation/details");
         }
@@ -78,18 +89,28 @@ namespace healthcare_system.Controllers
             return Redirect("/reservation/details");
         }
 
-        public IActionResult EditReservationSave(TermReservation tr)
+        public IActionResult EditReservationSave(EditTermReservationViewModel model)
         {
 
-            TermReservation tmp = _termReservationRepository.GetById(tr.ReservationId);
+            TermReservation termReservation = _termReservationRepository.GetById(model.ReservationId);
+            termReservation.Date = model.Date;
+
+            _termReservationRepository.Update(termReservation);
+            
+
+            Console.WriteLine(model.ReservationId);
+            Console.WriteLine(model.Date.ToString());
+
+            /*TermReservation tmp = _termReservationRepository.GetById(tr.ReservationId);
+            Console.WriteLine("Baje da gremo editat stuff");
             
             if(tmp.DoctorId!=null)
                 tmp.DoctorId = tr.DoctorId;
             if (tmp.PatientId != null)
-                tmp.PatientId = tr.PatientId;
+                tmp.PatientId = tr.PatientId; */
             //if (tmp.Date != null)
             //    tmp.Date = tr.Date;
-            _termReservationRepository.Update(tmp);
+            //_termReservationRepository.Update(tmp);
 
             return Redirect("/reservation/details");
         }

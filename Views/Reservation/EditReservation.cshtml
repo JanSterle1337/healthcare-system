@@ -1,41 +1,29 @@
-﻿@model healthcare_system.Models.TermReservation
-
-
+﻿@model healthcare_system.ViewModels.EditTermReservationViewModel
 
 <h1>Uredi termin za pacienta</h1>
+<form asp-controller="Reservation" asp-action="EditReservationSave" method="post" class="flex-column">
+        
+        <h2>Podatki o pacientu</h2>
+        <p>@Model.patient.FirstName @Model.patient.LastName</p>
+        <p>@Model.patient.EmailAddress</p>
+        <p>@Model.patient.Age</p>
 
+        <h2>Podatki o zdravniku</h2>
+        <p>@Model.doctor.FirstName @Model.doctor.LastName</p>
+        <p>@Model.doctor.Email</p>
+        <p>@Model.doctor.DepartmentId</p>
+        <p>@Model.doctor.Specialization</p>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Doctor Id</th>
-            <th scope="col">Dan in ura</th>
-            <th scope="col">Pacient</th>
-            <th scope="col"> Posodobi</th>
-        </tr>
-    </thead>
-    <tr>
-        <th scope="col">@Model.DoctorId</th> 
-        <th scope="col">@Model.Date.ToString("dd-M-yyyy hh:mm")</th>
-        <th scope="col">@Model.PatientId</th>
-        <th scope ="col">
-            @using (Html.BeginForm("BackToDetails", "Reservation"))
-            {
-                <button scope="row" type="submit" name="editButton" class="btn btn-danger btn-sm" asp>Prekliči</button>
-            }
+        <div class="form-group">
+            <label asp-for="@Model.Date" class="form-label">Reservation Date</label>
+            <input asp-for="@Model.Date" type="date" class="form-control" value="@Model.Date"/>
+            <span asp-validation-for="@Model.Date" class="text-danger"></span>
+        </div>
+        <input asp-for="@Model.ReservationId" type="hidden" value="@Model.ReservationId" />
 
-        </th>
-    </tr>
-    <tr>
-        @using (Html.BeginForm("EditReservationSave", "Reservation", FormMethod.Post))
-        {
-            <th scope="col">@Html.TextBoxFor(m => m.DoctorId) </th>
-            <th scope="col">@Html.TextBoxFor(m => m.Date) </th>
-            <th scope="col">@Html.TextBoxFor(m => m.PatientId) </th>
-            @Html.HiddenFor(m => m.ReservationId)
-            <th><button scope="row" type="submit" name="editButton" class="btn btn-success btn-sm" value="Submit">Shrani</button></th>
-        }
-    </tr>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    
+</form>
 
 
 
