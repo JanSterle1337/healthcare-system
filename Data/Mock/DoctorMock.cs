@@ -24,7 +24,7 @@ namespace healthcare_system.Data.Mock
                 new IdentityRole{Id="2", Name="Patient", NormalizedName="patient"}
 };
 
-            var rolesFromdb = _db.Roles.ToList();
+          /*  var rolesFromdb = _db.Roles.ToList();
 
 
             //always remove roles and add them back to db
@@ -39,13 +39,13 @@ namespace healthcare_system.Data.Mock
             {
                 _db.Roles.Add(r);
             }
-            _db.SaveChanges();
+            _db.SaveChanges(); */
 
             var mockDoctors = new List<Doctor>
             {
             new Doctor
             {
-                Id = "1",
+                Id = "10",
                 FirstName = "Željko",
                 LastName = "Pikolovski",
                 Email = "zeljko.pikolovski@gmail.com",
@@ -62,7 +62,7 @@ namespace healthcare_system.Data.Mock
             },
             new Doctor
             {
-                Id = "2",
+                Id = "11",
                 FirstName = "Peter",
                 LastName = "Novak",
                 Email = "peter.novak@gmail.com",
@@ -79,7 +79,7 @@ namespace healthcare_system.Data.Mock
             },
             new Doctor
             {
-                Id = "3",
+                Id = "12",
                 FirstName = "Sandra",
                 LastName = "Đukić",
                 Email = "sandra.đuric@gmail.com",
@@ -96,7 +96,7 @@ namespace healthcare_system.Data.Mock
             },
             new Doctor
             {
-                Id = "4",
+                Id = "13",
                 FirstName = "Aleksandra",
                 LastName = "Dubrovnik",
                 Password = "morje12345",
@@ -114,7 +114,7 @@ namespace healthcare_system.Data.Mock
             },
             new Doctor
             {
-                Id = "5",
+                Id = "14",
                 FirstName = "Joško",
                 LastName = "Debel",
                 Password = "debeliJosko12345",

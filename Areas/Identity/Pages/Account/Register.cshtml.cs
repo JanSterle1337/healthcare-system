@@ -160,7 +160,7 @@ namespace healthcare_system.Areas.Identity.Pages.Account
                 user.Specialization = Input.Specialization;
                 user.DepartmentId = Input.DepartmentId;
                 user.Email = Input.Email;
-
+                
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

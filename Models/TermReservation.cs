@@ -29,10 +29,12 @@ namespace healthcare_system.Models
         [Required]
         [ForeignKey("Patient")]
         public string PatientId { get; set; }
+        public Patient Patient { get; set; }
 
         [Required]
         [ForeignKey("Doctor")]
         public string DoctorId { get; set; }
+        public Doctor Doctor { get; set; }
 
         public string toString()
         {

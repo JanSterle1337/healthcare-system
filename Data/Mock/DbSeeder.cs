@@ -1,4 +1,5 @@
 ﻿using healthcare_system.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace healthcare_system.Data.Mock
@@ -35,6 +36,34 @@ namespace healthcare_system.Data.Mock
 
         public void SeedData()
         {
+
+            MockRemover mockRemover = new MockRemover(_context);
+            mockRemover.removePreviousMockData();
+
+            var roles = new IdentityRole[]
+            {
+                new IdentityRole{Id="1", Name="Doctor", NormalizedName="doctor"},
+                new IdentityRole{Id="2", Name="Patient", NormalizedName="patient"}
+            };
+
+            var rolesFromdb = _context.Roles.ToList();
+
+            foreach (var role in rolesFromdb)
+            {
+                _context.Roles.Remove(role);
+            }
+
+            _context.SaveChanges();
+
+
+            foreach (IdentityRole r in roles)
+            {
+                _context.Roles.Add(r);
+            }
+            _context.SaveChanges();
+
+
+
             List<Patient> patients = _patientMock.seedPatients();
             _hospitalMock.seedHospitals();
             _departmentMock.seedDepartments();

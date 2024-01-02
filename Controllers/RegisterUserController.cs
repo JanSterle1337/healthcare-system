@@ -56,14 +56,14 @@ namespace healthcare_system.Controllers
 
 
             Patient patient = new Patient();
-            patient.PatientId = uuid;
+            patient.Id = uuid;
             patient.FirstName = patientViewModel.FirstName;
             patient.LastName = patientViewModel.LastName;
             patient.Age = age;
             patient.Password = hashedPassword;
             patient.Birth = patientViewModel.Birth.UtcDateTime;
             patient.Sex = patientViewModel.Sex;
-            patient.EmailAddress = patientViewModel.EmailAddress;
+            patient.Email = patientViewModel.EmailAddress;
             patient.PhoneNumber = patientViewModel.PhoneNumber;
 
             _patientRepository.Add(patient);

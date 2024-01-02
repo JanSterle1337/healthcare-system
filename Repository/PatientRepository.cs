@@ -47,7 +47,7 @@ namespace healthcare_system.Repository
 
         public Patient GetPatientsByEmails(string email)
         {
-            return _db.Patients.FirstOrDefault(patient => patient.EmailAddress == email);
+            return _db.Patients.FirstOrDefault(patient => patient.Email == email);
         }
     }
 }

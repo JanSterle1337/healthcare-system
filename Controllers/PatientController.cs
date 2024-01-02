@@ -18,7 +18,7 @@ namespace healthcare_system.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Patient")]
         public IActionResult Index() 
         {
             List<Patient> patients = _patientRepository.GetAll();

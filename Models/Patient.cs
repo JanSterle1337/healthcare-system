@@ -1,24 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace healthcare_system.Models
 {
-    public class Patient
+    public class Patient : ApplicationUser
     {
-        [Key]
-        [Required]
-        [StringLength(50)]
-        public string PatientId { get; set; }
-
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
-
-        [Required]
-        [MinLength(8)]
-        public string Password { get; set; }
 
         [Required]
         public DateTime Birth {  get; set; }
@@ -28,13 +15,6 @@ namespace healthcare_system.Models
         public string Sex { get; set; }
 
         public int Age { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string EmailAddress { get; set; }
-
-        [Phone]
-        public string PhoneNumber { get; set; }
 
         public ICollection<TermReservation> Terms { get; set; }
     }

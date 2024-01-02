@@ -105,7 +105,7 @@ namespace healthcare_system.Controllers
         [Authorize]
         public ActionResult NewReservationPage()        
         {   
-            var patientEmails = _patientRepository.GetAll().Select(patient => patient.EmailAddress);
+            var patientEmails = _patientRepository.GetAll().Select(patient => patient.Email);
             ViewData["PatientEmails"] = new SelectList(patientEmails);
 
             return View("NewReservation");
@@ -176,7 +176,7 @@ namespace healthcare_system.Controllers
             termReservation.ReservedBy = true; //reserved by doctor
             Patient pickedPatient = _patientRepository.GetPatientsByEmails(termReservationVM.Email);
 
-            termReservation.PatientId = pickedPatient.PatientId;
+            termReservation.PatientId = pickedPatient.Id;
             termReservation.DoctorId = _userManager.GetUserId(User);
             termReservation.TermStatus = "neizvedeno";
 

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace healthcare_system.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<Doctor>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         protected readonly IConfiguration Configuration;
 
-        public ApplicationDbContext(IConfiguration configuration)
+        public ApplicationDbContext(IConfiguration configuration, DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Configuration = configuration;
         }
@@ -34,6 +34,7 @@ namespace healthcare_system.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             //zdi se mi da tega nerabva nism pa zihr zto bom pustu zaenkt notr zakomentiran
             //modelBuilder.Entity<Department>()
             //    .HasOne(d => d.Hospital)
@@ -45,8 +46,21 @@ namespace healthcare_system.Data
             //    .WithMany(d => d.Doctors)
             //    .HasForeignKey(dr => dr.DepartmentId);
 
-         
+
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TermReservation>()
+                .HasOne(t => t.Patient)
+                .WithMany()
+                .HasForeignKey(t => t.PatientId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TermReservation>()
+                .HasOne(t => t.Doctor)
+                .WithMany()
+                .HasForeignKey(t => t.DoctorId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
 
             modelBuilder.Entity<Consultation>()
                 .HasOne(c => c.Prescription)
@@ -54,7 +68,7 @@ namespace healthcare_system.Data
                 .HasForeignKey<Prescription>(p => p.ConsultationId);
 
             modelBuilder.Entity<Patient>()
-                .HasIndex(p => p.EmailAddress)
+                .HasIndex(p => p.Email)
                 .IsUnique();
 
 
