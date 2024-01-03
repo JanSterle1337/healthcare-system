@@ -14,6 +14,7 @@ namespace healthcare_system.Data.Mock
         protected DoctorMock _doctorMock;
         protected MedicineMock _medicineMock;
         protected TermReservationMock _termReservationMock;
+        protected ApplicationUserMock _userMock;
 
         public DbSeeder(
             ApplicationDbContext context, 
@@ -22,7 +23,8 @@ namespace healthcare_system.Data.Mock
             DepartmentMock departmentMock,
             DoctorMock doctorMock,
             MedicineMock medicineMock,
-            TermReservationMock termReservationMock
+            TermReservationMock termReservationMock,
+            ApplicationUserMock applicationUserMock
             ) 
         {
             _context = context;
@@ -32,6 +34,7 @@ namespace healthcare_system.Data.Mock
             _doctorMock = doctorMock;
             _medicineMock = medicineMock;
             _termReservationMock = termReservationMock;
+            _userMock = applicationUserMock;
         }
 
         public void SeedData()
@@ -40,36 +43,18 @@ namespace healthcare_system.Data.Mock
             MockRemover mockRemover = new MockRemover(_context);
             mockRemover.removePreviousMockData();
 
-            var roles = new IdentityRole[]
-            {
-                new IdentityRole{Id="1", Name="Doctor", NormalizedName="doctor"},
-                new IdentityRole{Id="2", Name="Patient", NormalizedName="patient"}
-            };
-
-            var rolesFromdb = _context.Roles.ToList();
-
-            foreach (var role in rolesFromdb)
-            {
-                _context.Roles.Remove(role);
-            }
-
-            _context.SaveChanges();
-
-
-            foreach (IdentityRole r in roles)
-            {
-                _context.Roles.Add(r);
-            }
-            _context.SaveChanges();
 
 
 
-            List<Patient> patients = _patientMock.seedPatients();
             _hospitalMock.seedHospitals();
             _departmentMock.seedDepartments();
-            _doctorMock.seedDoctors();
+            _userMock.seedApplicationUsers();
+            
+            
+            //_doctorMock.seedDoctors();
             _medicineMock.seedMedicine();
-            _termReservationMock.seedTermReservations(patients);
+            //List<Patient> patients = _patientMock.seedPatients();
+            _termReservationMock.seedTermReservations();
         }
     }
 }

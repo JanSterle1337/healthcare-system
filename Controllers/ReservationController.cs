@@ -84,7 +84,7 @@ namespace healthcare_system.Controllers
                 TermReservation reservation = _termReservationRepository.GetById(id);
                 String doctorIdOfReservation = reservation.DoctorId;
                 Doctor doctor = _doctorRepository.GetById(reservation.DoctorId);
-                List<Doctor> doctors =  _doctorRepository.GetAll().Where(d => d.Id != doctorIdOfReservation).ToList();
+                //List<Doctor> doctors =  _doctorRepository.GetAll().Where(d => d.Id != doctorIdOfReservation).ToList();
 
                 Patient patient = _patientRepository.GetById(reservation.PatientId);
 
@@ -92,7 +92,7 @@ namespace healthcare_system.Controllers
                 editTermReservationViewModel.doctor = doctor;
                 editTermReservationViewModel.patient = patient;
                 editTermReservationViewModel.ReservationId = reservation.ReservationId;
-                editTermReservationViewModel.DoctorList = doctors.Select(d => new SelectListItem { Value = d.Email, Text = d.Email }).ToList();
+                //editTermReservationViewModel.DoctorList = doctors.Select(d => new SelectListItem { Value = d.Email, Text = d.Email }).ToList();
                 editTermReservationViewModel.Date = reservation.Date.DateTime;
 
                 return View(editTermReservationViewModel);
@@ -105,8 +105,8 @@ namespace healthcare_system.Controllers
         [Authorize]
         public ActionResult NewReservationPage()        
         {   
-            var patientEmails = _patientRepository.GetAll().Select(patient => patient.Email);
-            ViewData["PatientEmails"] = new SelectList(patientEmails);
+            //var patientEmails = _patientRepository.GetAll().Select(patient => patient.Email);
+            //ViewData["PatientEmails"] = new SelectList(patientEmails);
 
             return View("NewReservation");
         }
@@ -134,8 +134,8 @@ namespace healthcare_system.Controllers
 
             if (model.SelectedDoctorEmail != null && model.SelectedDoctorEmail.Length > 0)
             {
-                Doctor newDoctor = _doctorRepository.GetDoctorByEmail(model.SelectedDoctorEmail);
-                termReservation.DoctorId = newDoctor.Id;
+                ////Doctor newDoctor = _doctorRepository.GetDoctorByEmail(model.SelectedDoctorEmail);
+                ////termReservation.DoctorId = newDoctor.Id;
             }
             
 
@@ -174,9 +174,9 @@ namespace healthcare_system.Controllers
             termReservation.Date = termReservationVM.ReservationDate;
             termReservation.ReservationId = Guid.NewGuid().ToString("D");
             termReservation.ReservedBy = true; //reserved by doctor
-            Patient pickedPatient = _patientRepository.GetPatientsByEmails(termReservationVM.Email);
+            ////Patient pickedPatient = _patientRepository.GetPatientsByEmails(termReservationVM.Email);
 
-            termReservation.PatientId = pickedPatient.Id;
+            ////termReservation.PatientId = pickedPatient.Id;
             termReservation.DoctorId = _userManager.GetUserId(User);
             termReservation.TermStatus = "neizvedeno";
 

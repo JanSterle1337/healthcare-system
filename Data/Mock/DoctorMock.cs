@@ -15,7 +15,7 @@ namespace healthcare_system.Data.Mock
             _db = db;
         }
 
-        public void seedDoctors()
+        /*public void seedDoctors()
         {
 
             var roles = new IdentityRole[]
@@ -24,22 +24,6 @@ namespace healthcare_system.Data.Mock
                 new IdentityRole{Id="2", Name="Patient", NormalizedName="patient"}
 };
 
-          /*  var rolesFromdb = _db.Roles.ToList();
-
-
-            //always remove roles and add them back to db
-            foreach (var role in rolesFromdb)
-            {
-                _db.Roles.Remove(role);
-            }
-
-            _db.SaveChanges();
-
-            foreach (IdentityRole r in roles)
-            {
-                _db.Roles.Add(r);
-            }
-            _db.SaveChanges(); */
 
             var mockDoctors = new List<Doctor>
             {
@@ -125,7 +109,7 @@ namespace healthcare_system.Data.Mock
                 EmailConfirmed = true,
                 LockoutEnabled = false,
                 PhoneNumberConfirmed = true,
-                PhoneNumber = "031308600",
+                PhoneNumber =  "031308600",
                 Specialization = "Hipertenzija",
                 DepartmentId = "B2",
                 SecurityStamp = Guid.NewGuid().ToString("D")
@@ -176,6 +160,6 @@ namespace healthcare_system.Data.Mock
 
             _db.SaveChanges();
 
-        }
+        } */
     }
 }

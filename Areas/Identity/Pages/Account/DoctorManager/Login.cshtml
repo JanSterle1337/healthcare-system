@@ -1,5 +1,8 @@
 ﻿@page
+@using healthcare_system.Areas.Identity.Pages;
 @model LoginModel
+
+@*Doctor manager*@
 
 @{
     ViewData["Title"] = "Log in";
@@ -34,9 +37,6 @@
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div>
                 <div class="login-footer-wrapper">
-                    <p class="default-margin">
-                        <a id="forgot-password" class="no-underline" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
                     <p class="default-margin">
                         <a asp-page="./Register" class="no-underline" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>

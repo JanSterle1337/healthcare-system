@@ -12,8 +12,8 @@ using healthcare_system.Data;
 namespace healthcare_system.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231230153839_Initial")]
-    partial class Initial
+    [Migration("20240102181233_IdentityModification")]
+    partial class IdentityModification
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,10 +258,6 @@ namespace healthcare_system.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Consultation", b =>
@@ -310,6 +306,33 @@ namespace healthcare_system.Migrations
                     b.HasIndex("HospitalId");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Specialization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Hospital", b =>
@@ -363,6 +386,34 @@ namespace healthcare_system.Migrations
                     b.HasKey("MedicineId");
 
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("healthcare_system.Models.Patient", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Birth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Sex")
+                        .IsRequired()
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
+
+                    b.ToTable("Patients");
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Prescription", b =>
@@ -430,44 +481,6 @@ namespace healthcare_system.Migrations
                     b.HasIndex("PatientId1");
 
                     b.ToTable("TermReservations");
-                });
-
-            modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
-                {
-                    b.HasBaseType("healthcare_system.Models.ApplicationUser");
-
-                    b.Property<string>("DepartmentId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Specialization")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasDiscriminator().HasValue("Doctor");
-                });
-
-            modelBuilder.Entity("healthcare_system.Models.Patient", b =>
-                {
-                    b.HasBaseType("healthcare_system.Models.ApplicationUser");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Birth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Sex")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasDiscriminator().HasValue("Patient");
                 });
 
             modelBuilder.Entity("MedicinePrescription", b =>
@@ -558,6 +571,36 @@ namespace healthcare_system.Migrations
                     b.Navigation("Hospital");
                 });
 
+            modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
+                {
+                    b.HasOne("healthcare_system.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Doctor")
+                        .HasForeignKey("healthcare_system.Models.Doctor", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.HasOne("healthcare_system.Models.Department", "Department")
+                        .WithMany("Doctors")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("healthcare_system.Models.Patient", b =>
+                {
+                    b.HasOne("healthcare_system.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Patient")
+                        .HasForeignKey("healthcare_system.Models.Patient", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
             modelBuilder.Entity("healthcare_system.Models.Prescription", b =>
                 {
                     b.HasOne("healthcare_system.Models.Consultation", "Consultation")
@@ -596,15 +639,13 @@ namespace healthcare_system.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
+            modelBuilder.Entity("healthcare_system.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("healthcare_system.Models.Department", "Department")
-                        .WithMany("Doctors")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.Navigation("Doctor")
                         .IsRequired();
 
-                    b.Navigation("Department");
+                    b.Navigation("Patient")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Consultation", b =>
@@ -618,14 +659,14 @@ namespace healthcare_system.Migrations
                     b.Navigation("Doctors");
                 });
 
-            modelBuilder.Entity("healthcare_system.Models.Hospital", b =>
-                {
-                    b.Navigation("Departments");
-                });
-
             modelBuilder.Entity("healthcare_system.Models.Doctor", b =>
                 {
                     b.Navigation("Terms");
+                });
+
+            modelBuilder.Entity("healthcare_system.Models.Hospital", b =>
+                {
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("healthcare_system.Models.Patient", b =>

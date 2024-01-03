@@ -13,18 +13,27 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddTransient<DbSeeder>();
 
 
+builder.Services.AddTransient<IPatientRepository, PatientRepository>();
+builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
+builder.Services.AddTransient<ITermReservationRepository, TermReservationRepository>();
+builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
 builder.Services.AddControllersWithViews();
-builder.Services.AddDefaultIdentity<Doctor>(options => options.SignIn.RequireConfirmedAccount = false)
+/*builder.Services.AddDefaultIdentity<Doctor>(options => options.SignIn.RequireConfirmedAccount = false)
         .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+        .AddEntityFrameworkStores<ApplicationDbContext>(); */
+
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("Cloud")
     ));
 
-builder.Services.AddTransient<IPatientRepository, PatientRepository>();
-builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
-builder.Services.AddTransient<ITermReservationRepository, TermReservationRepository>();
+
 
 builder.Services.AddTransient<PatientMock>();
 builder.Services.AddTransient<HospitalMock>();
@@ -32,6 +41,7 @@ builder.Services.AddTransient<DepartmentMock>();
 builder.Services.AddTransient<DoctorMock>();
 builder.Services.AddTransient<MedicineMock>();
 builder.Services.AddTransient<TermReservationMock>();
+builder.Services.AddTransient<ApplicationUserMock>();
 builder.Services.AddTransient<PasswordHasher>();
 builder.Services.AddTransient<AgeCalculator>();
 builder.Services.AddTransient<UuidGenerator>();
@@ -50,8 +60,9 @@ using (var scope = app.Services.CreateScope())
     var doctorContext = serviceProvider.GetRequiredService<DoctorMock>();
     var medicineContext = serviceProvider.GetRequiredService<MedicineMock>();
     var termReservationContext = serviceProvider.GetRequiredService<TermReservationMock>();
+    var applicationUserContext = serviceProvider.GetRequiredService<ApplicationUserMock>();
 
-    var seeder = new DbSeeder(context, patientContext, hospitalContext, departmentContext, doctorContext, medicineContext, termReservationContext);
+    var seeder = new DbSeeder(context, patientContext, hospitalContext, departmentContext, doctorContext, medicineContext, termReservationContext, applicationUserContext);
     seeder.SeedData();
 
 }

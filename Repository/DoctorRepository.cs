@@ -45,9 +45,10 @@ namespace healthcare_system.Repository
             }
         }
 
-        public Doctor GetDoctorByEmail(string email)
+        /*public Doctor GetDoctorByEmail(string email)
         {
-            return _db.Doctors.FirstOrDefault(doctor => doctor.Email == email);
-        }
+            //return _db.Doctors.FirstOrDefault(doctor => doctor.Email == email);
+            
+        } */
     }
 }

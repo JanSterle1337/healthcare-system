@@ -68,11 +68,26 @@ namespace healthcare_system.Data.Mock
             }
             _context.SaveChanges();
 
+            var doctors = _context.Doctors.ToList();
+            foreach (var doctor in doctors)
+            {
+                _context.Doctors.Remove(doctor);
+            }
+            _context.SaveChanges();
+
+            var patients = _context.Patients.ToList();
+            foreach (var patient in patients)
+            {
+                _context.Patients.Remove(patient);
+            }
+            _context.SaveChanges();
+
             var users = _context.Users.ToList();
             foreach (var user in users)
             {
                 _context.Users.Remove(user);
             }
+            _context.SaveChanges();
 
             var departments = _context.Departments.ToList();
             foreach (var department in departments)
@@ -80,11 +95,15 @@ namespace healthcare_system.Data.Mock
                 _context.Departments.Remove(department);
             }
 
+            _context.SaveChanges();
+
             var hospitals = _context.Hospitals.ToList();
             foreach (var hospital in hospitals)
             {
                 _context.Hospitals.Remove(hospital);
             }
+
+            _context.SaveChanges();
         }
 
     }

@@ -19,24 +19,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using healthcare_system.Repository;
+using healthcare_system.Data;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Configuration;
+using healthcare_system.Areas.Identity.Pages.Account.DoctorManager;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace healthcare_system.Areas.Identity.Pages.Account
+namespace healthcare_system.Areas.Identity.Pages
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Doctor> _signInManager;
-        private readonly UserManager<Doctor> _userManager;
-        private readonly IUserStore<Doctor> _userStore;
-        private readonly IUserEmailStore<Doctor> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
+        public IDoctorRepository _doctorRepository;
+        public IPatientRepository _patientRepository;
+        public IDepartmentRepository _departmentRepository;
 
         public RegisterModel(
-            UserManager<Doctor> userManager,
-            IUserStore<Doctor> userStore,
-            SignInManager<Doctor> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context,
+            IDoctorRepository doctorRepository,
+            IPatientRepository patientRepository,
+            IDepartmentRepository departmentRepository
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +59,10 @@ namespace healthcare_system.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
+            _doctorRepository = doctorRepository;
+            _patientRepository = patientRepository;
+            _departmentRepository = departmentRepository;
         }
 
         /// <summary>
@@ -51,6 +70,7 @@ namespace healthcare_system.Areas.Identity.Pages.Account
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
+      
         public InputModel Input { get; set; }
 
         /// <summary>
@@ -69,6 +89,8 @@ namespace healthcare_system.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+        
         public class InputModel
         {
             /// <summary>
@@ -79,7 +101,7 @@ namespace healthcare_system.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First name")]
-            public string FirstName {  get; set; }
+            public string FirstName { get; set; }
 
             [Required]
             [Display(Name = "LastName")]
@@ -111,30 +133,77 @@ namespace healthcare_system.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "PhoneNumber")]
-            public string PhoneNumber {  get; set; }
+            public string PhoneNumber { get; set; }
 
             [Required]
+            public bool PickedRole { get; set; }
+
+            //extra doctor properties
+            [RoleBasedValidation(PickedRole = true)]
             [Display(Name = "Specialization")]
-            public string Specialization {  get; set; }
+            public string Specialization { get; set; }
 
-            [Required]
-            [Display(Name = "Department")]
-            public string DepartmentId { get; set; }
+            //extra patient properties
+            [RoleBasedValidation(PickedRole = false)]
+            public DateTime? Birth {  get; set; }
+
+
+            [RoleBasedValidation(PickedRole = false)]
+            public string? Sex {  get; set; }
+
+            [RoleBasedValidation(PickedRole = false)]
+            public int? Age { get; set; }
 
         }
+
+        public class RoleBasedValidationAttribute : ValidationAttribute
+        {
+            public bool PickedRole { get; set; }
+
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (PickedRole)
+                {
+                    // If PickedRole is true (Doctor), validate Doctor-specific properties
+                    // You might want to adjust the conditions based on your actual requirements
+                    if (string.IsNullOrWhiteSpace((string)value))
+                    {
+                        return new ValidationResult($"{validationContext.DisplayName} is required for Doctor role.");
+                    }
+                }
+                else
+                {
+                    // If PickedRole is false (Patient), validate Patient-specific properties
+                    // You might want to adjust the conditions based on your actual requirements
+                    if (value == null || (value is string stringValue && string.IsNullOrWhiteSpace(stringValue)))
+                    {
+                        return new ValidationResult($"{validationContext.DisplayName} is required for Patient role.");
+                    }
+                }
+
+                // Validation passed
+                return ValidationResult.Success;
+            }
+        }
+
 
         public List<string> SpecializationOptions { get; set; }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+           
+            var departments = _departmentRepository.GetAll();
 
-            SpecializationOptions = new List<string>
-           { 
+            SpecializationOptions = departments.Select(department => $"{department.DepartmentId} - {department.Name}").ToList();
+
+
+            /*SpecializationOptions = new List<string>
+           {
                 "Hipertenzija",
                 "Hematologija",
                 "Gastroentrologija"
                 // Add more options as needed
-            };
+            }; */
 
 
             ReturnUrl = returnUrl;
@@ -147,20 +216,45 @@ namespace healthcare_system.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
 
-            if (ModelState.IsValid)
+            if (Input.PickedRole)
             {
+                if (ModelState.GetFieldValidationState("Input.Specialization") == ModelValidationState.Invalid)
+                {
+                    return Page();
+                }
+            } else
+            {
+                if (ModelState.GetFieldValidationState("Input.Birth") == ModelValidationState.Invalid ||
+                    ModelState.GetFieldValidationState("Input.Sex") == ModelValidationState.Invalid ||
+                    ModelState.GetFieldValidationState("Input.Age") == ModelValidationState.Invalid)
+                {
+                    return Page();
+                }
+            }
 
-                
+
+
+
+       
                 var user = CreateUser();
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.Email = Input.Email;
                 user.Password = Input.Password;
                 user.PhoneNumber = Input.PhoneNumber;
-                user.Specialization = Input.Specialization;
-                user.DepartmentId = Input.DepartmentId;
+                //user.Specialization = Input.Specialization;
+                //user.DepartmentId = Input.DepartmentId;
                 user.Email = Input.Email;
-                
+
+                if (Input.PickedRole == true)
+                {
+                    user.Discriminator = "Doctor";
+                }
+                else
+                {
+                    user.Discriminator = "Patient";
+                }
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -171,12 +265,50 @@ namespace healthcare_system.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
+                    var userRole = new IdentityUserRole<string> { };
+
+                    if (Input.PickedRole == true)
+                    {
+                        //registered user with Doctor role
+                        userRole = new IdentityUserRole<string> { RoleId = "1", UserId = userId };
+
+                        Doctor newDoctor = new Doctor();
+                        newDoctor.Id = userId;
+                        newDoctor.ApplicationUserId = userId;
+                        String[] splittedSpecialization = Input.Specialization.Split('-');
+
+                        newDoctor.Specialization = splittedSpecialization[1];
+                        newDoctor.DepartmentId = splittedSpecialization[0];
+
+                        _doctorRepository.Add(newDoctor);
+                       
+                    }
+                    else
+                    {
+                        //registered user with Patient role
+                        userRole = new IdentityUserRole<string> { RoleId = "2", UserId = userId };
+
+                        Patient patient = new Patient();
+                        patient.Id = userId;
+                        patient.ApplicationUserId = userId;
+                        patient.Birth = (DateTime) Input.Birth;
+                        patient.Sex = Input.Sex;
+                        patient.Age = (int) Input.Age;
+
+
+                        
+                    }
+
+                    _context.UserRoles.Add(userRole);
+                    _context.SaveChanges();
+
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                        values: new { area = "Identity", userId, code, returnUrl },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -184,7 +316,7 @@ namespace healthcare_system.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                     }
                     else
                     {
@@ -196,33 +328,32 @@ namespace healthcare_system.Areas.Identity.Pages.Account
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
 
-            // If we got this far, something failed, redisplay form
             return Page();
+
         }
 
-        private Doctor CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<Doctor>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(Doctor)}'. " +
-                    $"Ensure that '{nameof(Doctor)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<Doctor> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<Doctor>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

@@ -4,8 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace healthcare_system.Models
 {
-    public class Patient : ApplicationUser
+    public class Patient
     {
+
+        [Key]
+        public string Id { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string? ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
 
         [Required]
         public DateTime Birth {  get; set; }

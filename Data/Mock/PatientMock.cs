@@ -13,7 +13,7 @@ namespace healthcare_system.Data.Mock
             _db = db;
         }
 
-        public List<Patient> seedPatients()
+        /*public List<Patient> seedPatients()
         {
 
             var roles = new IdentityRole[]
@@ -150,9 +150,9 @@ namespace healthcare_system.Data.Mock
             }
 
             _db.SaveChanges();
-            return _db.Patients.ToList();  */
+            return _db.Patients.ToList();  
 
-        }
+        } */
 
     }
 }

@@ -16,14 +16,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace healthcare_system.Areas.Identity.Pages.Account
+namespace healthcare_system.Areas.Identity.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<Doctor> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<Doctor> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -110,6 +110,8 @@ namespace healthcare_system.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+
+                Console.WriteLine("doctor login model is valid :)");
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -120,7 +122,7 @@ namespace healthcare_system.Areas.Identity.Pages.Account
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
@@ -133,6 +135,8 @@ namespace healthcare_system.Areas.Identity.Pages.Account
                     return Page();
                 }
             }
+
+            Console.WriteLine("doctor login model is invalid");
 
             // If we got this far, something failed, redisplay form
             return Page();

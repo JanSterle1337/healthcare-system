@@ -12,7 +12,7 @@ namespace healthcare_system.Data.Mock
             _db = db;
         }
 
-        public void seedTermReservations(List<Patient> patients)
+        public void seedTermReservations()
         {
             var mockReservations = new List<TermReservation>
             {
@@ -23,8 +23,8 @@ namespace healthcare_system.Data.Mock
                         Date = new DateTime(1990, 1, 15, 0, 0, 0, DateTimeKind.Utc),
                         ReservedBy  = true,
                         CreatedAt = new DateTime(1990, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                        PatientId = "1",
-                        DoctorId = "10",
+                        PatientId = "6",
+                        DoctorId = "1",
                         TermStatus = "neizvedeno"
 
                     },
@@ -35,8 +35,8 @@ namespace healthcare_system.Data.Mock
                         Date = new DateTime(2000, 1, 15, 0, 0, 0, DateTimeKind.Utc),
                         ReservedBy  = true,
                         CreatedAt = new DateTime(2005, 1, 10, 0, 0, 0, DateTimeKind.Utc),
-                        PatientId = "2",
-                        DoctorId = "11",
+                        PatientId = "7",
+                        DoctorId = "2",
                         TermStatus = "neizvedeno"
 
                     },
@@ -47,8 +47,8 @@ namespace healthcare_system.Data.Mock
                         Date = new DateTime(2023, 12, 12, 0, 0, 0, DateTimeKind.Utc),
                         ReservedBy = true,
                         CreatedAt = DateTime.Now,
-                        PatientId = "3",
-                        DoctorId= "12",
+                        PatientId = "8",
+                        DoctorId= "3",
                         TermStatus = "neizvedeno"
 
                     },
@@ -58,8 +58,8 @@ namespace healthcare_system.Data.Mock
                         Date = new DateTime(2023, 12, 13, 0, 0, 0, DateTimeKind.Utc),
                         ReservedBy = true,
                         CreatedAt = DateTime.Now,
-                        PatientId = "4",
-                        DoctorId = "13",
+                        PatientId = "9",
+                        DoctorId = "4",
                         TermStatus = "neizvedeno"
 
                     }
@@ -67,15 +67,11 @@ namespace healthcare_system.Data.Mock
             };
 
 
-
-            var existingPatientIds = _db.TermReservations.Select(p => p.ReservationId).ToList();
-
             foreach (var mockReservation in mockReservations)
             {
-                if (!existingPatientIds.Contains(mockReservation.ReservationId))
-                {
-                    _db.TermReservations.Add(mockReservation);
-                }
+            
+                _db.TermReservations.Add(mockReservation);
+                
             }
 
             _db.SaveChanges();

@@ -25,5 +25,8 @@ namespace healthcare_system.Models
 
         public string Discriminator { get; set; }
 
+        public Doctor Doctor { get; set; }
+        public Patient Patient { get; set; }
+
     }
 }

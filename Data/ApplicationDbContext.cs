@@ -23,6 +23,8 @@ namespace healthcare_system.Data
            // options.UseSnakeCaseNamingConvention();
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Department> Departments { get; set; }
@@ -46,8 +48,22 @@ namespace healthcare_system.Data
             //    .WithMany(d => d.Doctors)
             //    .HasForeignKey(dr => dr.DepartmentId);
 
+            
+
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(a => a.Doctor)
+                .WithOne(d => d.ApplicationUser)
+                .HasForeignKey<Doctor>(d => d.ApplicationUserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(a => a.Patient)
+                .WithOne(p => p.ApplicationUser)
+                .HasForeignKey<Patient>(p => p.ApplicationUserId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<TermReservation>()
                 .HasOne(t => t.Patient)
@@ -67,9 +83,9 @@ namespace healthcare_system.Data
                 .WithOne(p => p.Consultation)
                 .HasForeignKey<Prescription>(p => p.ConsultationId);
 
-            modelBuilder.Entity<Patient>()
+            /*modelBuilder.Entity<Patient>()
                 .HasIndex(p => p.Email)
-                .IsUnique();
+                .IsUnique(); */
 
 
         }
