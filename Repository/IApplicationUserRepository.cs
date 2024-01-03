@@ -7,7 +7,7 @@ namespace healthcare_system.Repository
     {
         List<ApplicationUser> GetAll();
         ApplicationUser GetById(string id);
-        //Doctor GetDoctorByEmail(string email);
+        ApplicationUser GetUserByEmail(string email);
         void Add(ApplicationUser user);
         void Update(ApplicationUser user);
         void Remove(string id);

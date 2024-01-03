@@ -17,6 +17,7 @@ builder.Services.AddTransient<IPatientRepository, PatientRepository>();
 builder.Services.AddTransient<IDoctorRepository, DoctorRepository>();
 builder.Services.AddTransient<ITermReservationRepository, TermReservationRepository>();
 builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
 
 builder.Services.AddControllersWithViews();
 /*builder.Services.AddDefaultIdentity<Doctor>(options => options.SignIn.RequireConfirmedAccount = false)

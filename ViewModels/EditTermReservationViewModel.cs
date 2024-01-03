@@ -14,6 +14,9 @@ namespace healthcare_system.ViewModels
         public Doctor doctor { get; set; }
         public Patient patient { get; set; }
 
+        public ApplicationUser doctorAccount { get; set; }
+        public ApplicationUser patientAccount {  get; set; }
+
         [AllowNull]
         public List<SelectListItem> DoctorList { get; set; }
 

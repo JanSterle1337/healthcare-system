@@ -46,10 +46,10 @@ namespace healthcare_system.Repository
             }
         }
 
-        /*public ApplicationUser GetUserByEmail(string email)
+        public ApplicationUser GetUserByEmail(string email)
         {
-            //return _db.ApplicationUser.FirstOrDefault(user => user.Email == email);
+            return _db.ApplicationUsers.FirstOrDefault(user => user.Email == email);
             
-        } */
+        } 
     }
 }
