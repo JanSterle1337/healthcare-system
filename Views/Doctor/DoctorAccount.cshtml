@@ -1,0 +1,52 @@
+﻿@model healthcare_system.ViewModels.DoctorProfileModelView
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Doktorski račun</h1>
+
+    <div class="card mb-4 bg-light">
+        <div class="card-body">
+            <h2 class="card-title text-info">Podrobnejše informacije</h2>
+            <p class="card-text"><strong>Ime:</strong> @Model.doctorAccount.FirstName @Model.doctorAccount.LastName</p>
+            <p class="card-text"><strong>E-naslov:</strong> @Model.doctorAccount.Email</p>
+            <p class="card-text"><strong>Tel. številka:</strong> @Model.doctorAccount.PhoneNumber</p>
+            <p class="card-text"><strong>Specializacija:</strong> @Model.doctor.Specialization</p>
+            <p class="card-text"><strong>Ustanova: </strong>@Model.hospital.Name</p>
+            <p class="card-text"><strong>Oddelek:</strong> @Model.doctor.DepartmentId</p>
+            <p class="card-text"><strong>Nadstropje: @Model.department.Floor</strong></p>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-success">Upcoming Terms</h2>
+            @if (Model.doctorTerms.Count > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var term in Model.doctorTerms)
+                        {
+                            <tr>
+                                <td>@term.Date</td>
+                                <td>@term.TermStatus</td>
+                                <!-- Add more cells as needed -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">No upcoming terms.</p>
+            }
+        </div>
+    </div>
+</div>
+

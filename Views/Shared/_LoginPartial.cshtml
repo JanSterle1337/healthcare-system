@@ -8,22 +8,46 @@
 @if (SignInManager.IsSignedIn(User))
 {
 
-        <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    var user = await UserManager.GetUserAsync(User);
+
+        if (user != null && user.Discriminator == "Doctor")
+        {
+            <li class="nav-item">
+                <a id="manage" class="nav-link text-dark" asp-controller="Doctor" asp-action="DoctorAccount" title="Manage">@user.FirstName @user.LastName</a>
+            </li>
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+        else if (user != null && user.Discriminator == "Patient")
+        {
+            <li class="nav-item">
+                <a id="manage" class="nav-link text-dark" asp-controller="Patient" asp-action="PatientAccount" title="Manage">@user.FirstName @user.LastName</a>
+            </li>
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        } else
+        {
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </li>
+        }
+
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/DoctorManager/Register">Register(Doctor)</a>
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/DoctorManager/Register">Ustvari račun</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/DoctorManager/Login">Login(Doctor)</a>
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/DoctorManager/Login">Prijava</a>
     </li>
     /*<li class="nav-item">
         <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/PatientManager/Register">Register(Patient)</a>

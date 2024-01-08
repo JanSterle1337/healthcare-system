@@ -1,0 +1,86 @@
+﻿@model healthcare_system.ViewModels.PatientProfileModelView
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Pacientov račun</h1>
+
+    <div class="card mb-4 bg-light">
+        <div class="card-body">
+            <h2 class="card-title text-info">Podrobnejše informacije</h2>
+            <p class="card-text"><strong>Ime:</strong> @Model.patientAccount.FirstName @Model.patientAccount.LastName</p>
+            <p class="card-text"><strong>E-naslov:</strong> @Model.patientAccount.Email</p>
+            <p class="card-text"><strong>Tel. številka:</strong> @Model.patientAccount.PhoneNumber</p>
+            @if (@Model.patient.Sex == "M") {
+                <p class="card-text"><strong>Spol: </strong>Moški</p>
+            } else
+            {
+                <p class="card-text"><strong>Spol: </strong>Moški</p>
+            }
+            <p class="card-text"><strong>Starost:</strong> @Model.patient.Age</p>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-success">Pretekli pregledi</h2>
+            @if (Model.pastTerms.Count > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var term in Model.pastTerms)
+                        {
+                            <tr>
+                                <td>@term.Date</td>
+                                <td>@term.TermStatus</td>
+                                <!-- Add more cells as needed -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Ni preteklih pregledov.</p>
+            }
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h2 class="card-title text-success">Prihajajoči pregledi</h2>
+            @if (Model.futureTerms.Count > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <!-- Add more columns as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var term in Model.futureTerms)
+                        {
+                            <tr>
+                                <td>@term.Date</td>
+                                <td>@term.TermStatus</td>
+                                <!-- Add more cells as needed -->
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="text-muted">Ni prihajajočih pregledov.</p>
+            }
+        </div>
+    </div>
+</div>

@@ -34,7 +34,7 @@ namespace healthcare_system.Controllers
             _userRepository = applicationRepository;
         }
 
-        [Authorize]
+        [Authorize(Roles ="Doctor")]
         [HttpGet("/reservation/details")]
         public IActionResult Details()
         {

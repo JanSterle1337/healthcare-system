@@ -242,9 +242,13 @@ namespace healthcare_system.Areas.Identity.Pages
                 user.Email = Input.Email;
                 user.Password = Input.Password;
                 user.PhoneNumber = Input.PhoneNumber;
+                user.PhoneNumberConfirmed = true;
+                user.EmailConfirmed = true;
+            user.TwoFactorEnabled = true;
+            
                 //user.Specialization = Input.Specialization;
                 //user.DepartmentId = Input.DepartmentId;
-                user.Email = Input.Email;
+                
 
                 if (Input.PickedRole == true)
                 {
@@ -269,7 +273,8 @@ namespace healthcare_system.Areas.Identity.Pages
 
                     if (Input.PickedRole == true)
                     {
-                        //registered user with Doctor role
+                    //registered user with Doctor role
+                        Console.WriteLine("registriramo userja z rolom Doctor");
                         userRole = new IdentityUserRole<string> { RoleId = "1", UserId = userId };
 
                         Doctor newDoctor = new Doctor();
@@ -281,11 +286,15 @@ namespace healthcare_system.Areas.Identity.Pages
                         newDoctor.DepartmentId = splittedSpecialization[0];
 
                         _doctorRepository.Add(newDoctor);
+                        _context.UserRoles.Add(userRole);
+                        
+                        _context.SaveChanges();
                        
                     }
                     else
                     {
-                        //registered user with Patient role
+                    //registered user with Patient role
+                        Console.WriteLine("registriramo userja z rolom Patient");
                         userRole = new IdentityUserRole<string> { RoleId = "2", UserId = userId };
 
                         Patient patient = new Patient();
@@ -296,13 +305,12 @@ namespace healthcare_system.Areas.Identity.Pages
                         patient.Age = (int) Input.Age;
 
 
-                        
+                        _patientRepository.Add(patient);
+                        _context.UserRoles.Add(userRole);
+                        _context.SaveChanges();
                     }
 
-                    _context.UserRoles.Add(userRole);
-                    _context.SaveChanges();
-
-
+                    
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(

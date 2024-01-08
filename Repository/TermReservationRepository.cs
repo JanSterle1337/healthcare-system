@@ -19,6 +19,23 @@ namespace healthcare_system.Repository
             return _db.TermReservations.ToList();
         }
 
+        public List<TermReservation> GetPastTermsForPatient(string patientId)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            return _db.TermReservations
+                    .Where(term => term.PatientId == patientId && term.Date < currentDate)
+                    .ToList();
+        }
+
+        public List<TermReservation> GetFutureTermsForPatient(string patientId)
+        {
+            DateTime currentDate = DateTime.Now;
+            return _db.TermReservations
+                    .Where(term => term.PatientId == patientId && term.Date >= currentDate)
+                    .ToList();
+        }
+
         public TermReservation GetById(string id)
         {
             return _db.TermReservations.Find(id);
